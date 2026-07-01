@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "inscripciones")
 @SQLDelete(sql = "UPDATE inscripciones SET is_active = false WHERE id=?") 
@@ -23,12 +25,14 @@ public class Inscripciones {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", nullable = false)
-    private Grupos grupo;
+    @JoinColumn(name = "student_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Estudiantes estudiante;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private Estudiantes estudiante;
+    @JoinColumn(name = "group_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Grupos grupo;
 
     @Column(length = 50)
     private String status = "PENDIENTE";

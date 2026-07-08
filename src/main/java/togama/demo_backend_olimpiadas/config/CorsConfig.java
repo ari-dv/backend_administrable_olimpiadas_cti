@@ -13,10 +13,10 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*");
+                registry.addMapping("/**")
+                .allowedOrigins("*") // O tu dominio de Angular
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("X-API-KEY", "Content-Type", "Authorization"); // ¡Vital incluir X-API-KEY!
             }
         };
     }
